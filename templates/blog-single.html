@@ -106,11 +106,9 @@
                     <div class="sidebar-box ftco-animate">
                         <div class="categories">
                             <h3>Categories</h3>
-                            <li><a href="#">Illustration <span class="ion-ios-arrow-forward"></span></a></li>
-                            <li><a href="#">Branding <span class="ion-ios-arrow-forward"></span></a></li>
-                            <li><a href="#">Application <span class="ion-ios-arrow-forward"></span></a></li>
-                            <li><a href="#">Design <span class="ion-ios-arrow-forward"></span></a></li>
-                            <li><a href="#">Marketing <span class="ion-ios-arrow-forward"></span></a></li>
+                            {% for category in categories %}
+                                <li><a href="/blog/?cat_id={{ category.id }}">{{ category.name }} <span class="ion-ios-arrow-forward"></span></a></li>
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="sidebar-box ftco-animate">

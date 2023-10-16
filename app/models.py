@@ -21,9 +21,19 @@ class Author(models.Model):
         return self.name
 
 
+class Category(models.Model):
+
+    name = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Post(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     title = models.CharField(max_length=150)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
     description = models.CharField(max_length=250)
     body = models.TextField()
     image = models.ImageField(upload_to='images/')
@@ -44,5 +54,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.name
-
-

@@ -1,12 +1,24 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Post, Author, Contact, Comment
+from .models import Post, Author, Contact, Comment, Category
 
 
 # admin.site.register(Post)
 # admin.site.register(Author)
 # admin.site.register(Contact)
-# admin.site.register(Comment)
+
+class PostInlineAdmin(admin.TabularInline):
+    model = Post
+    extra = 1
+
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'id')
+    list_filter = ('name',)
+    inlines = [PostInlineAdmin, ]
+
+
+admin.site.register(Category, CategoryAdmin)
 
 
 class AuthorAdmin(admin.ModelAdmin):

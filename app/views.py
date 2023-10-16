@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Post, Contact, Comment
+from .models import Post, Contact, Comment, Category
 import requests
 from django.http import HttpResponse
 
@@ -30,7 +30,11 @@ def contact_view(request):
 
 
 def blog_view(request):
-    posts = Post.objects.all()
+    data = request.GET
+    cat_id = data.get("cat_id")
+    cat_obj = Category.objects.get(id=cat_id)
+    posts = Post.objects.filter(category=cat_obj)
+
     d = {
         'posts': posts
     }
@@ -40,10 +44,12 @@ def blog_view(request):
 def blog_single_view(request, pk):
     post = Post.objects.get(id=pk)
     comments = Comment.objects.filter(post=post)
+    categories = Category.objects.all()
 
     d = {
         'post': post,
-        'comments': comments
+        'comments': comments,
+        "categories": categories
     }
 
     if request.method == "POST":
